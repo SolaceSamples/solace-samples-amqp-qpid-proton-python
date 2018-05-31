@@ -16,7 +16,6 @@ usage(){
     echo "    clean:            destroys virtual environment to execute examples"
     echo "    run <example.py>: runs <example.py> in the virtual environment"
     echo "    activate:         executes the virtualenv script 'activate' to change the local environment settings"
-    echo "    deactivate:       executes the virtualenv script 'deactivate' to restore the local environment settings"
     echo "    help:             prints this message"
     echo "<command_args>:"
     echo "    <example.py>: example python file"
@@ -43,6 +42,11 @@ elif [ "$COMMAND" == "run" ]; then
         echo "Example python file ($EXAMPLE) does not exists"
         exit 1
     fi
+elif [ "$COMMAND" == "activate" ]; then
+    # ensure virtual python environment is setup
+    ([ $DEV_ENV_HOME ] && [ -d $DEV_ENV_HOME ]) || source $ENV_SCRIPT_HOME/env_setup.sh
+    echo "Use environment command 'deactivate' to restore original environment settings"
+    source $ENV_BIN/activate
 elif [ "$COMMAND" == "" ] || [ "$COMMAND" == "help" ]; then
     usage
 else
