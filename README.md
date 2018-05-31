@@ -17,31 +17,32 @@ The "Getting Started" tutorials will get you up to speed and sending messages wi
 - If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
 
 ## Contents
+This repository contains sample code for the following scenarios:
 
-This repository contains code and matching tutorial walk throughs for basic Solace messaging patterns. For a nice introduction to the Solace API and associated tutorials, check out the [Getting Started Home Page](https://solacesamples.github.io/solace-samples-amqp-qpid-proton-python/).
-
-See the individual tutorials for details:
-
-- [Publish/Subscribe](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/publish-subscribe): Learn how to set up pub/sub messaging on a Solace VMR.
+1. Publish to a Queue, see [simple_send](src/simple_send.md)
+2. Receive from a Queue, see [simple_recv](src/simple_recv.py)
+3. Publish on a Topic, see [producer](src/producer.py)
+4. Receive from Durable Topic Endpoint, see [consumer](src/dte_consumer.py)
 
 ## Prerequisites
 
-This tutorial requires the Apache Qpid Proton Python API library, version 0.22 (March 2018) or newer. Download the Proton Python API library to your computer from [here](https://qpid.apache.org/releases/).
+Must have python 2.7 or later installed and available.
+Must have shell script environment.
 
-## Build the Samples
+## Building & Running
 
-Just clone and build. For example:
+### Activate environment and run the Examples
+
+Just clone and activate. For example:
 
   1. clone this GitHub repository
-  1. `./env.sh setup`
+  2. `source ./env.sh activate`
 
-## Running the Samples
+### Running the Examples
 
-To try individual samples, build the project from source and then run samples like the following:
+To try individual examples, build the project from source and then run them like the following:
 
-    ./env.sh run ./src/producer.py amqp://<msg_backbone_ip:port>
-
-The individual tutorials linked above provide full details which can walk you through the samples, what they do, and how to correctly run them to explore Solace messaging.
+    python src/simple_send.py amqp://<msg_backbone_ip:port>
 
 ## Contributing
 
@@ -49,7 +50,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-See the list of [contributors](https://github.com/SolaceSamples/solace-samples-amqp-qpid-proton-python/contributors) who participated in this project.
+See the list of [contributors](https://github.com/SolaceSamples/solace-samples-amqp-qpid-proton-python/graphs/contributors) who participated in this project.
 
 ## License
 
