@@ -1,3 +1,24 @@
+#!/usr/bin/env python
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+
 from __future__ import print_function, unicode_literals
 import optparse
 import proton
@@ -24,6 +45,12 @@ def get_options():
     (options, args) = parser.parse_args()
     return options
 
+
+"""
+DTEConsumer class is a proton event handler
+This class establishes a connection and revceiver link
+attached to solace Durable Topic Endpoint
+"""
 class DTEConsumer(MessagingHandler):
 
     def __init__(self, url, dte_name, address, count):
@@ -35,7 +62,11 @@ class DTEConsumer(MessagingHandler):
         self.dte_name = dte_name
 
     def on_start(self, event):
+        # establish amqp connection to solace pubsub+ broker
         conn = event.container.connect(url = self.url)
+        # attach amqp receiver link to a solace Durable Topic Endpoint
+        # name=self.dte_name sets the Link name to the subscription name
+        # self.topic_address sets the topic and indicates the durability of the topic endpoint 
         event.container.create_receiver(conn, self.topic_address, name=self.dte_name)
     
     def on_message(self, event):
@@ -51,13 +82,25 @@ class DTEConsumer(MessagingHandler):
         print("transport failure for borker:", self.url)
         MessagingHandler.on_transport_error(self, event)
 
-proton.log.setLevel(10)
-#proton.handlers.log.setLevel(10)
 
+# get application options
 options = get_options()
+"""
+To consume from a DTE over amqp a subscription name
+and a topic are required.
+
+To achieve this the following must be done:
+
+1) Set the amqp address to 'dsub://<topic_name>'. 
+   The prefix 'dsub://' indicates the topic endpoint to bind to is a durable topic endpoint.
+
+2) Set the amqp Link name to the subscription name.
+"""
+# add the 'dsub://' prefix to the given topic 
 amqp_address = 'dsub://' + options.topic
 
 try:
     print("waiting to receive", options.messages,"messages")
+    # start the proton Container event loop with the DTEConsumer event handler
     Container(DTEConsumer(options.url, options.dte_name, amqp_address, options.messages)).run()
 except KeyboardInterrupt: pass

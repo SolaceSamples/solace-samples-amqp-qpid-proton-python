@@ -23,6 +23,9 @@ import optparse
 from proton.handlers import MessagingHandler
 from proton.reactor import Container
 
+"""
+Proton event handler class
+"""
 class Recv(MessagingHandler):
     def __init__(self, url, count):
         super(Recv, self).__init__()
@@ -50,6 +53,12 @@ parser.add_option("-a", "--address", default="localhost:5672/examples",
 parser.add_option("-m", "--messages", type="int", default=100,
                   help="number of messages to receive; 0 receives indefinitely (default %default)")
 opts, args = parser.parse_args()
+
+"""
+The amqp address can be a topic or a queue.
+Do not use a prefix or use 'queue://' in the amqp address for
+the amqp receiver source address to receiver messages from a queue.
+"""
 
 try:
     Container(Recv(opts.address, opts.messages)).run()

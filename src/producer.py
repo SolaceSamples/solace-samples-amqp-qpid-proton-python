@@ -1,3 +1,23 @@
+#!/usr/bin/env python
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
 from __future__ import print_function, unicode_literals
 import optparse
 from proton import Message
@@ -19,8 +39,10 @@ def get_options():
     (options, args) = parser.parse_args()
     return options
 
-#Proton event Handler class
-
+"""
+Proton event Handler class
+Establishes an amqp connection and creates an amqp sender link to transmit messages
+"""
 class MessageProducer(MessagingHandler):
 
     def __init__(self, url, address, count):
@@ -41,9 +63,6 @@ class MessageProducer(MessagingHandler):
         # creates sender link to transfer message to the broker
         event.container.create_sender(conn, self.topic_address)
    
-    def on_link_opened(self, event):
-        print("sender link established", event.sender, "recvr", event.receiver)
- 
     def on_sendable(self, event):
         while event.sender.credit and self.sent < self.total:
             event.sender.send(Message(body="hello "+str(self.sent)))
@@ -69,6 +88,7 @@ target address to indicate which topic message are sent to.
 amqp_address = 'topic://' + options.topic
 
 try:
+    # starts the proton container event loop with the MessageProducer event handler
     Container(MessageProducer(options.url, amqp_address, options.messages)).run()
 except KeyboardInterrupt: pass
 

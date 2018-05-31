@@ -24,6 +24,9 @@ from proton import Message
 from proton.handlers import MessagingHandler
 from proton.reactor import Container
 
+"""
+Proton event handler class
+"""
 class Send(MessagingHandler):
     def __init__(self, url, messages):
         super(Send, self).__init__()
@@ -57,6 +60,13 @@ parser.add_option("-a", "--address", default="localhost:5672/examples",
 parser.add_option("-m", "--messages", type="int", default=100,
                   help="number of messages to send (default %default)")
 opts, args = parser.parse_args()
+
+"""
+The amqp address can be a topic or a queue.
+Do not use a prefix or use 'queue://' in the amqp address for 
+the amqp sender link target address to indicate which queue 
+messages are sent to.
+"""
 
 try:
     Container(Send(opts.address, opts.messages)).run()
