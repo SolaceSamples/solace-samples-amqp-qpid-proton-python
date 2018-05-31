@@ -1,6 +1,6 @@
 # Getting Started Tutorials
 
-## Using Apache Qpid JMS 1.1 over AMQP 1.0 with Solace Message Routers
+## Using Apache Qpid Proton Python over AMQP 1.0 with Solace Message Routers
 
 The Advanced Message Queuing Protocol (AMQP) is an open standard application layer protocol for message-oriented middleware, and Solace Message Routers support AMQP 1.0.
 
@@ -18,59 +18,30 @@ The "Getting Started" tutorials will get you up to speed and sending messages wi
 
 ## Contents
 
-This repository contains code and matching tutorial walk throughs for basic Solace messaging patterns. For a nice introduction to the Solace API and associated tutorials, check out the [Getting Started Home Page](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/).
+This repository contains code and matching tutorial walk throughs for basic Solace messaging patterns. For a nice introduction to the Solace API and associated tutorials, check out the [Getting Started Home Page](https://solacesamples.github.io/solace-samples-amqp-qpid-proton-python/).
 
 See the individual tutorials for details:
 
 - [Publish/Subscribe](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/publish-subscribe): Learn how to set up pub/sub messaging on a Solace VMR.
-- [Persistence](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/persistence-with-queues): Learn how to set up persistence for guaranteed delivery.
-- [Request/Reply](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/request-reply): Learn how to set up request/reply messaging.
-- [Confirmed Delivery](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/confirmed-delivery): Learn how to confirm that your messages are received by a Solace message router.
-- [Topic to Queue Mapping](https://solacesamples.github.io/solace-samples-amqp-qpid-jms1/topic-to-queue-mapping): Learn how to map existing topics to Solace queues.
 
 ## Prerequisites
 
-This tutorial requires the Apache Qpid JMS API library, version 0.23.0 (May 2017) or newer. Download the JMS API library to your computer from [here](https://qpid.apache.org/releases/).
+This tutorial requires the Apache Qpid Proton Python API library, version 0.22 (March 2018) or newer. Download the Proton Python API library to your computer from [here](https://qpid.apache.org/releases/).
 
 ## Build the Samples
 
 Just clone and build. For example:
 
   1. clone this GitHub repository
-  1. `./gradlew assemble`
+  1. `./env.sh setup`
 
 ## Running the Samples
 
 To try individual samples, build the project from source and then run samples like the following:
 
-    ./build/staged/bin/topicPublisher <msg_backbone_ip:port>
+    ./env.sh run ./src/producer.py amqp://<msg_backbone_ip:port>
 
 The individual tutorials linked above provide full details which can walk you through the samples, what they do, and how to correctly run them to explore Solace messaging.
-
-## Exploring the Samples
-
-### Setting up your preferred IDE
-
-Using a modern Java IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging which can be useful when you're exploring the samples and even modifying the samples. Follow the steps below for your preferred IDE.
-
-#### Using Eclipse
-
-To generate Eclipse metadata (.classpath and .project files), do the following:
-
-    ./gradlew eclipse
-
-Once complete, you may then import the projects into Eclipse as usual:
-
- *File -> Import -> Existing projects into workspace*
-
-Browse to the *'solace-samples-amqp-qpid-jms1'* root directory. All projects should import
-free of errors.
-
-#### Using IntelliJ IDEA
-
-To generate IDEA metadata (.iml and .ipr files), do the following:
-
-    ./gradlew idea
 
 ## Contributing
 
@@ -78,7 +49,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-See the list of [contributors](https://github.com/SolaceSamples/solace-samples-amqp-qpid-jms1/contributors) who participated in this project.
+See the list of [contributors](https://github.com/SolaceSamples/solace-samples-amqp-qpid-proton-python/contributors) who participated in this project.
 
 ## License
 
