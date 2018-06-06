@@ -27,7 +27,7 @@ This repository contains sample code for the following scenarios:
 ## Prerequisites
 
 Must have python 2.7 or later installed and available.
-Must have shell script environment.
+Must have bash shell script environment.
 
 ## Building & Running
 
