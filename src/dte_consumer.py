@@ -41,7 +41,11 @@ def get_options():
         help="DTE name (default %default)")
     parser.add_option("-m", "--messages", type="int", default=100,
         help="number of messages to receive (default %default)")
-    
+    parser.add_option("-o", "--username", default=None,
+        help="username for authentication (default %default)")
+    parser.add_option("-p", "--password", default=None,
+        help="password for authentication (default %default)")
+
     (options, args) = parser.parse_args()
     return options
 
@@ -53,21 +57,42 @@ attached to solace Durable Topic Endpoint
 """
 class DTEConsumer(MessagingHandler):
 
-    def __init__(self, url, dte_name, address, count):
+    def __init__(self, url, dte_name, address, count, username, password):
         super(DTEConsumer, self).__init__()
+        
+        # amqp broker host url
         self.url = url
+        
+        # amqp node address representing a topic
         self.topic_address = address
+        
+        # name of the Durable Topic endpoint
+        self.dte_name = dte_name
+        
+        # authentication credentials
+        self.username = username
+        self.password = password
+        
+        # messaging counters
         self.expected = count
         self.received = 0
-        self.dte_name = dte_name
 
     def on_start(self, event):
-        # establish amqp connection to solace pubsub+ broker
-        conn = event.container.connect(url = self.url)
+        # select anonymous or plain authentication
+        if self.username:
+            # establish amqp connection to solace pubsub+ broker with plain authentication
+            conn = event.container.connect(url=self.url,
+                                           user=self.username,
+                                           password=self.password,
+                                           allow_insecure_mechs=True)
+        else:
+            # establish amqp connection to solace pubsub+ broker with anonymous authentication
+            conn = event.container.connect(url=self.url)
         # attach amqp receiver link to a solace Durable Topic Endpoint
         # name=self.dte_name sets the Link name to the subscription name
         # self.topic_address sets the topic and indicates the durability of the topic endpoint 
-        event.container.create_receiver(conn, self.topic_address, name=self.dte_name)
+        if conn:
+            event.container.create_receiver(conn, source=self.topic_address, name=self.dte_name)
     
     def on_message(self, event):
         if self.received < self.expected:
@@ -102,5 +127,11 @@ amqp_address = 'dsub://' + options.topic
 try:
     print("waiting to receive", options.messages,"messages")
     # start the proton Container event loop with the DTEConsumer event handler
-    Container(DTEConsumer(options.url, options.dte_name, amqp_address, options.messages)).run()
+    Container(DTEConsumer(options.url, 
+                          options.dte_name, 
+                          amqp_address, 
+                          options.messages, 
+                          options.username, 
+                          options.password)
+    ).run()
 except KeyboardInterrupt: pass
