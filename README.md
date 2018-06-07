@@ -19,7 +19,7 @@ The "Getting Started" tutorials will get you up to speed and sending messages wi
 ## Contents
 This repository contains sample code for the following scenarios:
 
-1. Publish to a Queue, see [simple_send](src/simple_send.md)
+1. Publish to a Queue, see [simple_send](src/simple_send.py)
 2. Receive from a Queue, see [simple_recv](src/simple_recv.py)
 3. Publish on a Topic using address prefix, see [producer](src/producer.py)
 4. Receive from Durable Topic Endpoint using address prefix, see [consumer](src/dte_consumer.py)
