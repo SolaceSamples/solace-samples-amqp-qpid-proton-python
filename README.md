@@ -21,8 +21,11 @@ This repository contains sample code for the following scenarios:
 
 1. Publish to a Queue, see [simple_send](src/simple_send.md)
 2. Receive from a Queue, see [simple_recv](src/simple_recv.py)
-3. Publish on a Topic, see [producer](src/producer.py)
-4. Receive from Durable Topic Endpoint, see [consumer](src/dte_consumer.py)
+3. Publish on a Topic using address prefix, see [producer](src/producer.py)
+4. Receive from Durable Topic Endpoint using address prefix, see [consumer](src/dte_consumer.py)
+5. Receive from Durable Topic Endpoint using address prefix and terminus durability fields, see [consumer_std](src/dte_consumer_std.py)
+
+>**Note** AMQP address prefixes are not supported until Solace PubSub+ Software Message Broker **version 8.11.0** and Solace PubSub+ Message Broker **version 8.5.0**.
 
 ## Prerequisites
 
