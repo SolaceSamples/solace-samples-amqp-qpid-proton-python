@@ -1,8 +1,8 @@
 # Getting Started Tutorials
 
-## Using Apache Qpid Proton Python over AMQP 1.0 with Solace Message Routers
+## Using Apache Qpid Proton Python over AMQP 1.0 with Solace PubSub+ Message Brokers
 
-The Advanced Message Queuing Protocol (AMQP) is an open standard application layer protocol for message-oriented middleware, and Solace Message Routers support AMQP 1.0.
+The Advanced Message Queuing Protocol (AMQP) is an open standard application layer protocol for message-oriented middleware, and Solace PubSub+ Message Brokers support AMQP 1.0.
 
 In addition to information provided on the Solace [Developer Portal](http://dev.solace.com/tech/amqp/), you may also look at external sources for more details about AMQP:
 
@@ -13,8 +13,8 @@ In addition to information provided on the Solace [Developer Portal](http://dev.
 The "Getting Started" tutorials will get you up to speed and sending messages with Solace technology as quickly as possible. There are three ways you can get started:
 
 - Follow [these instructions](https://cloud.solace.com/create-messaging-service/) to quickly spin up a cloud-based Solace messaging service for your applications.
-- Follow [these instructions](https://docs.solace.com/Solace-VMR-Set-Up/Setting-Up-VMRs.htm) to start the Solace VMR in leading Clouds, Container Platforms or Hypervisors. The tutorials outline where to download and how to install the Solace VMR.
-- If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
+- Follow [these instructions](https://docs.solace.com/Solace-VMR-Set-Up/Setting-Up-VMRs.htm) to start the Solace PubSub+ software message broker in leading Clouds, Container Platforms or Hypervisors. The tutorials outline where to download and how to install the Solace PubSub+ software message broker.
+- If your company has Solace PubSub+ appliance deployed, contact your middleware team to obtain the host name or IP address of a Solace PubSub+ appliance to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
 
 ## Contents
 This repository contains sample code for the following scenarios:
@@ -25,7 +25,7 @@ This repository contains sample code for the following scenarios:
 4. Receive from Durable Topic Endpoint using address prefix, see [consumer](src/dte_consumer.py)
 5. Receive from Durable Topic Endpoint using address prefix and terminus durability fields, see [consumer_std](src/dte_consumer_std.py)
 
->**Note** AMQP address prefixes are not supported until Solace PubSub+ Software Message Broker **version 8.11.0** and Solace PubSub+ Message Broker **version 8.5.0**.
+>**Note** AMQP address prefixes are not supported until Solace PubSub+ software message broker **version 8.11.0** and Solace PubSub+ appliance **version 8.5.0**.
 
 ## Prerequisites
 
