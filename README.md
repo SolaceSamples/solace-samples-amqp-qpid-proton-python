@@ -45,7 +45,14 @@ Just clone and activate. For example:
 
 To try individual examples, build the project from source and then run them like the following:
 
-    python src/simple_send.py amqp://<msg_backbone_ip:port>
+- With anonymous authentication (your MessagingService/MessageVpn has Basic Authentication set to _None_):
+
+    `python src/simple_send.py --url amqp://<msg_backbone_ip:port> -a queue.name`
+
+- OR with basic authentication (your MessagingService/MessageVpn has Basic Authentication set to _Internal Database_, _LDAP_, or _RADIUS_):
+
+    `python src/simple_send.py --url amqp://<msg_backbone_ip:port> --username user --password password -a queue.name`
+
 
 ## Contributing
 
